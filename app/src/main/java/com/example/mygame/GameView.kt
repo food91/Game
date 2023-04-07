@@ -60,7 +60,7 @@ class GameView:SurfaceView,
             }
             if (event.action == MotionEvent.ACTION_DOWN) {
                 nextEvent?.downX  = (event.x.toInt())
-                nextEvent?.downX  = (event.y.toInt())
+                nextEvent?.downY  = (event.y.toInt())
             } else if (event.action == MotionEvent.ACTION_UP) {
                 nextEvent?.upX =(event.x.toInt())
                 nextEvent?.upY =(event.y.toInt())
@@ -149,9 +149,9 @@ class GameView:SurfaceView,
     }
 
     private fun playingLogic() {
-        if (nextEvent!!.getDir() == NextEvent.DOWN) {
-            gamestate = GameState.Over
-        }
+//        if (nextEvent!!.getDir() == NextEvent.DOWN) {
+//            gamestate = GameState.Over
+//        }
     }
 
     private fun overLogic() {
@@ -165,18 +165,12 @@ class GameView:SurfaceView,
     }
 
     fun playingDraw(canvas: Canvas){
-        var image = resources.getDrawable(R.drawable.leadingrole)
-        val srcRect = Rect(
-            0, 0, image.intrinsicWidth,
-            image.intrinsicHeight
-        )
-        val dstRect = Rect(srcRect)
-        val bitmap = Bitmap.createBitmap(
-            image.intrinsicWidth,
-            image.intrinsicHeight, Bitmap.Config.ALPHA_8
-        )
-        val canvas = Canvas()
-        canvas.drawBitmap(bitmap, srcRect, dstRect, paint)
+        Utils.drawImage(canvas,
+            BitmapFactory.decodeResource(this.resources,R.drawable.back),
+            0,0,width,height,0,0)
+        Utils.drawImage(canvas,
+            BitmapFactory.decodeResource(this.resources,R.drawable.leadingrole),
+            width/2-60,height-130,130,130,0,0)
     }
 
     override fun surfaceCreated(p0: SurfaceHolder) {
